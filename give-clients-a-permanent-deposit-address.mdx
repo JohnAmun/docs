@@ -1,0 +1,25 @@
+---
+title: "Permanent deposit addresses"
+description: "Give each customer a fixed deposit address so repeat deposits always credit correctly."
+---
+
+For deposit-driven businesses (casinos, brokers, prop firms), each customer gets a **permanent** address they can reuse for every deposit.
+
+{/* Guidde video embed goes here */}
+
+<Steps>
+  <Step title="Create a client wallet for the customer">
+    {/* Guidde steps */}
+  </Step>
+  <Step title="Display the address (and QR) in your platform">
+    {/* Guidde steps */}
+  </Step>
+</Steps>
+
+<Info>
+  **Static client wallet vs checkout charge — critical.** A client wallet assigned to a customer is **permanent**: repeat deposits to the same address are **always credited**. A **checkout charge** mints a **single-use** wallet — re-sending to a previous charge address is **not tracked**. "Same address every time" applies to client wallets only.
+</Info>
+
+<Warning>
+  The **balance shown on a client wallet is cumulative throughput** (lifetime total received), **not** a current balance. Funds sweep to your treasury instantly, so a client wallet showing a large number is normal and holds nothing.
+</Warning>

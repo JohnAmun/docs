@@ -1,0 +1,32 @@
+---
+title: "Create a payment link"
+description: "Create a checkout and share a link to accept crypto payments — no code required."
+---
+
+A checkout is a reusable payment object behind a link, button, or embed. Pick the type that matches how you sell.
+
+{/* Guidde video embed goes here */}
+
+<Steps>
+  <Step title="Choose a checkout type">
+    {/* Guidde steps */}
+  </Step>
+  <Step title="Set the details and branding">
+    {/* Guidde steps — name, description, payment methods, colors, logo, expiry */}
+  </Step>
+  <Step title="Copy your link and share it">
+    {/* Guidde steps */}
+  </Step>
+</Steps>
+
+<Info>
+  **Four checkout types:** **Donation** (any amount) · **Sale** (fixed fiat price) · **Sale token** (sell one crypto for another) · **Cart** (amount passed in the link).
+</Info>
+
+<Tip>
+  Use the **clickId** field to tag each checkout with your own order or customer ID. It's searchable, echoed in callbacks, and returned as `outsideOrderId` — this is how you attribute payments back to a record in your CRM.
+</Tip>
+
+<Note>
+  Hosted checkouts show "Payments processed by Crypto Now" unless you set a **custom domain**. Each charge also has an **expiry** — after it lapses, a fresh charge is generated.
+</Note>

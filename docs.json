@@ -1,0 +1,135 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "sequoia",
+  "name": "CryptoNow",
+  "colors": {
+    "primary": "#5283fc",
+    "light": "#74a7ff",
+    "dark": "#014bd2"
+  },
+  "favicon": {
+    "light": "/images/Icon_transparent.svg.svg",
+    "dark": "/images/Icon_transparent.svg.svg"
+  },
+  "navigation": {
+    "pages": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      }
+    ],
+    "versions": [
+      {
+        "version": "Untitled Version",
+        "global": {
+          "anchors": [
+            {
+              "anchor": "Blog",
+              "icon": "newspaper",
+              "href": "https://www.crypto-now.io/blog"
+            },
+            {
+              "anchor": "Documentation",
+              "icon": "book-open-cover",
+              "href": "https://docs.crypto-now.io/what-is-crypto-now/"
+            }
+          ]
+        },
+        "pages": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "create-your-account",
+              "secure-your-account",
+              "set-up-your-treasury-wallet-and-gas",
+              "recover-a-wrongly-sent-token"
+            ]
+          },
+          {
+            "group": "Get paid",
+            "pages": [
+              "create-your-first-payment-link",
+              "embed-payments-on-your-site",
+              "set-up-woo-commerce",
+              "give-clients-a-permanent-deposit-address",
+              "set-up-subscription-payments"
+            ]
+          },
+          {
+            "group": "Pay out",
+            "pages": [
+              "make-a-withdrawal",
+              "pay-many-people-at-once-multisend"
+            ]
+          },
+          {
+            "group": "Manage your crypto",
+            "pages": [
+              "swap-your-crypto",
+              "auto-convert-deposits-to-stablecoins-auto-swap"
+            ]
+          },
+          {
+            "group": "Fix problems",
+            "pages": [
+              "why-does-my-wallet-show-0-a-huge-number",
+              "understanding-transaction-statuses"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/images/Icon_transparent.svg.svg",
+    "dark": "/images/Icon_transparent.png.png",
+    "href": "https://www.crypto-now.io/"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hi@mintlify.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://app.mintlify.com"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
+    }
+  },
+  "background": {
+    "color": {
+      "light": "#e0e6ed",
+      "dark": "#0e0d0d"
+    }
+  },
+  "appearance": {
+    "default": "dark",
+    "strict": false
+  },
+  "fonts": {
+    "family": "Inter"
+  },
+  "styling": {
+    "codeblocks": "system"
+  }
+}
