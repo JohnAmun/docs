@@ -1,29 +1,51 @@
 ---
 title: "Set up your treasury & gas"
-description: "Create your account (treasury) wallet and make sure it's funded with gas so deposits and payouts process."
+description: "Fund native gas tokens in your account wallets so sweeps, swaps, and sends can go through — and set who covers gas on client flows."
 ---
 
-Your **account wallet** is your treasury — it's where customer deposits are collected and where payouts are sent from.
+Your **account wallets** are your treasury — one wallet per network, holding what
+you've earned. On-chain actions (sweeping client deposits, swapping, sending out)
+cost a network miner fee, paid in that chain's **native gas token** (ETH on
+Ethereum, BNB on BNB Chain, and so on). Keep a little gas in each network you use,
+or those actions can't execute.
 
-{/* Guidde video embed goes here */}
+## See your treasury
 
-<Steps>
-  <Step title="Create your account wallet">
-    {/* Guidde steps — create new or import existing, per currency */}
-  </Step>
-  <Step title="Fund it with gas">
-    {/* Guidde steps — replenish the native currency */}
-  </Step>
-</Steps>
+Go to **Wallets → Account wallets** for the per-network view of your balances.
 
-<Info>
-  **Account wallet vs client wallet.** The account wallet is your treasury. Client wallets are per-customer deposit addresses — they never hold funds; every deposit sweeps into your account wallet automatically.
-</Info>
+<Frame caption="Account wallets — one per network, each its own address.">
+  <img src="/images/set-up-your-treasury-and-gas/01-account-wallets.png" alt="CryptoNow account wallets list showing one wallet per network" />
+</Frame>
+
+## Fund gas
+
+Open **Receive** on the native coin of a network you'll use (e.g. Ethereum),
+then send a small amount of that token to the address shown — scan the QR or copy
+the address.
+
+<Frame caption="Send a little native gas to this network's account-wallet address.">
+  <img src="/images/set-up-your-treasury-and-gas/02-fund-gas-address.png" alt="Receive dialog with a wallet address and QR code for funding gas" />
+</Frame>
+
+<Tip>
+  You only need gas on the networks you'll actually transact on. A few dollars of
+  native token per network is plenty to start.
+</Tip>
+
+## Choose who pays gas
+
+In **Settings → Account Settings**, the **Miner Fee for withdrawal / replenishment
+pays** toggles decide whether **you (Me)** or **the customer** covers the network
+fee. The same panel holds your **Account fee** percentages — your optional
+commission on withdrawals and replenishments.
+
+<Frame caption="Set the gas payer and your account-fee percentages.">
+  <img src="/images/set-up-your-treasury-and-gas/03-gas-payer-and-fees.png" alt="Account settings showing miner fee payer toggles and account fee fields" />
+</Frame>
 
 <Warning>
-  **Keep gas in your account wallet.** It fronts the network (miner) fee to sweep customer deposits in. If it runs dry you'll see a **"Wait for funds"** status — that's the system telling you which wallet to top up, not a customer refund.
+  **This toggle only affects client-wallet flows** — client replenishment sweeps
+  and client-wallet withdrawals. It does **not** change who pays gas on your own
+  account-wallet sends or swaps; those always draw native gas from the account
+  wallet itself. That's why funding gas above matters regardless of this setting.
 </Warning>
-
-<Note>
-  **Who pays gas is a setting** — two separate toggles for deposits and withdrawals. You can charge the customer or absorb it; decide per your margins.
-</Note>
