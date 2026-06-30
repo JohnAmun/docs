@@ -1,0 +1,109 @@
+---
+title: "Create a payment link"
+description: "Configure a hosted checkout, pick one of four payment types, brand it, and share a link to start accepting crypto."
+---
+
+A **checkout** is the reusable object behind your payment links, buttons, and iFrames. Create one once, then share its link anywhere — email, chat, social, a QR code — and your customer pays in crypto on a CryptoNow-hosted page. No code required.
+
+{/* VIDEO (optional sizzle, ~20s): create a Sell-a-product checkout end to end, copy the link, open it. */}
+
+## Create a checkout
+
+<Steps>
+  <Step title="Open Checkouts and start a new one">
+    Go to **Payments → Checkouts** and click **Create Checkout**.
+
+    <Frame caption="The Checkouts list. Click Create Checkout to begin.">
+      <img src="/images/create-a-payment-link/01-checkouts-list.png" alt="CryptoNow Checkouts page with the Create Checkout button" />
+    </Frame>
+  </Step>
+
+  <Step title="Choose what you're doing">
+    Pick one of the four payment types. This is the first decision and it shapes the rest of the form.
+
+    <Frame caption="The four checkout types.">
+      <img src="/images/create-a-payment-link/02-choose-type.png" alt="Checkout type selector: Accept crypto, Sell a product, Sell currency, Cart" />
+    </Frame>
+
+    - **Accept crypto** — customer chooses any amount (deposits, top-ups, donations).
+    - **Sell a product** — fixed price in fiat (stores, digital goods, invoices).
+    - **Sell currency** — customer sends one coin and receives another (in-widget exchange).
+    - **Cart** — no stored amount; the total and fiat currency are passed in the link as parameters.
+
+    The steps below use **Sell a product** as the worked example.
+  </Step>
+
+  <Step title="Choose what to collect from the customer">
+    Decide whether to capture the payer's details: nothing, full name, and/or email. Click **Next**.
+
+    <Frame caption="Customer information capture.">
+      <img src="/images/create-a-payment-link/03-customer-information.png" alt="Customer information step with Don't collect / Full name / Email options" />
+    </Frame>
+  </Step>
+
+  <Step title="Fill in the checkout details">
+    Set the product name, description, post-payment **Website** (where the customer lands after paying), **Payment methods** (which coins you accept), **price + fiat currency**, and **Expire time** (how long a charge stays open — 10 / 30 / 60 min). Brand it with a checkout photo, logo, background and accent colour. Then click **Create**.
+
+    <Frame caption="The Sell-a-product form, with branding fields.">
+      <img src="/images/create-a-payment-link/04-product-form.png" alt="Blank Sell a product checkout form" />
+    </Frame>
+
+    <Frame caption="The same form, filled in.">
+      <img src="/images/create-a-payment-link/05-product-form-filled.png" alt="Filled Sell a product checkout form with sample values" />
+    </Frame>
+
+    <Note>**Accept crypto** uses this same form without the price field — the customer enters any amount at pay time.</Note>
+  </Step>
+
+  <Step title="Copy the link and share it">
+    On success you get three ways to deliver the checkout — **Link**, **Embed** (button snippet), and **iFrame** — plus the **clickId** option. Copy the link and you're live.
+
+    <Frame caption="Share as a link, an embed button, or an iFrame.">
+      <img src="/images/create-a-payment-link/06-share-link.png" alt="Share panel with Link, Embed, iFrame tabs and clickId checkbox" />
+    </Frame>
+  </Step>
+</Steps>
+
+This is what your customer sees when they open the link — your branding, the total, and the coins you accept:
+
+<Frame caption="The hosted payment widget (customer view).">
+  <img src="/images/create-a-payment-link/07-customer-widget.png" alt="Customer-facing Send payment widget showing total and currency choices" />
+</Frame>
+
+## Track payments with clickId
+
+<Tip>
+Enable **clickId** on the share panel and append your own id to the link (`?clickId=...`) — an order id, customer id, or any other reference (numbers and characters). It's attached to the transaction, **searchable**, echoed back in callbacks, and returned in the API as `outsideOrderId`. This is how you reconcile an on-chain payment to a specific order or user in your CRM.
+</Tip>
+
+## The other checkout types
+
+### Sell currency
+
+The customer sends one coin and receives another. Set **Receive payment** (the coin you pay out), the **Merchant wallet** it pays from, **min / max** amounts, and **Fixed** or **Market** price.
+
+<Frame caption="Sell-currency form — exchange-specific fields.">
+  <img src="/images/create-a-payment-link/08-sale-token-form.png" alt="Sell currency checkout form with you-send/you-get, min/max, fixed/market" />
+</Frame>
+
+The payer enters a "you send" amount, sees the live rate, and provides a recipient wallet for the coin they receive. If they send less than quoted they get proportionally fewer tokens (but never below `min`); if more, never above `max`.
+
+<Frame caption="Sell-currency widget (customer view).">
+  <img src="/images/create-a-payment-link/09-sale-token-widget.png" alt="Customer-facing sell currency widget with You send / You get" />
+</Frame>
+
+### Cart
+
+A Cart checkout stores **no price** — just a fiat currency. The amount is passed in at pay time, which makes it the right choice for a shopping basket with dynamic totals.
+
+<Frame caption="Cart form — fiat currency, no price field.">
+  <img src="/images/create-a-payment-link/10-cart-form.png" alt="Cart checkout form showing fiat currency and no price field" />
+</Frame>
+
+Its share panel adds an **amount and fiatCurrency** toggle — those two values travel as URL parameters on each charge, alongside the optional `clickId`.
+
+<Frame caption="Cart share panel with the amount & fiatCurrency parameter.">
+  <img src="/images/create-a-payment-link/11-cart-share.png" alt="Cart share panel with amount and fiatCurrency and clickId options" />
+</Frame>
+
+<Info>Need to embed the checkout on your own site instead of sharing a link? See **Embed payments on your site**.</Info>
