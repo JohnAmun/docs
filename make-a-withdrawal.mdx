@@ -1,28 +1,98 @@
 ---
 title: "Make a withdrawal"
-description: "Send funds from your treasury to an external or internal address."
+description: "Send crypto out of your CryptoNow account to any external address, another internal wallet, or a saved contact — with fees, gas priority, and two-factor security."
 ---
 
-Send funds out of your account wallet to any address — a customer payout, a transfer, or your own external wallet.
-
-{/* Guidde video embed goes here */}
-
-<Steps>
-  <Step title="Pick the wallet and amount">
-    {/* Guidde steps */}
-  </Step>
-  <Step title="Choose the destination">
-    {/* Guidde steps — external address, internal, or address book */}
-  </Step>
-  <Step title="Review fees and confirm with 2FA">
-    {/* Guidde steps */}
-  </Step>
-</Steps>
+When funds land in your account wallets, you withdraw them straight from the dashboard. CryptoNow estimates the network (miner) fee and the system fee, takes both **on top** of the amount you enter, and asks for two-factor confirmation before anything moves.
 
 <Info>
-  **Fees are added on top.** The recipient receives exactly the amount you entered — the miner fee and 0.5% system fee are taken from your wallet separately.
+**Fees are added on top — the recipient gets exactly what you type.** Your wallet is debited the amount **plus** the miner fee **plus** the 0.5% system fee. You never have to back the fees out of the amount yourself.
 </Info>
 
-<Tip>
-  Save frequent destinations in your **Address Book** so you can pick them instead of pasting an address each time. On EVM networks you can also set gas priority (Low / Normal / Fast).
-</Tip>
+## Before you start
+
+- The wallet you're withdrawing from needs the **native gas coin** of that network. For an ERC-20 token like USDT, that means the account wallet must hold some **ETH** to pay the miner fee. (See [Set up your treasury & gas](/set-up-your-treasury-and-gas).)
+- Both 2FA factors must be active: an **email code** and **Google Authenticator**. (See [Secure your account](/secure-your-account).)
+
+## Withdraw funds
+
+<Steps>
+<Step title="Open the Withdraw dialog">
+Go to **Transaction's → Withdraw** (or click **Send** on a funded wallet from Home). Your wallets that hold a balance appear here.
+
+<Frame caption="An account wallet holding 9.95 USDT, ready to withdraw.">
+  <img src="/images/make-a-withdrawal/01-funded-wallet.png" alt="CryptoNow Home showing a USDT account wallet with a 9.95 balance and recent replenishments" />
+</Frame>
+</Step>
+
+<Step title="Fill in the withdrawal">
+In the **Withdraw** dialog:
+
+- **Currency** — the coin/token to send (only currencies with funds are listed).
+- **Wallet address** — the source account wallet. The line beneath it shows the native-gas balance available to pay the miner fee (e.g. `ETH: 0.0058… — $9.22`).
+- **Sent to** — choose **External wallet** (paste any address), **Internal wallet** (move between your own wallets), or **Address Book** (a saved contact).
+- **Amount** — type a figure or hit **MAX**. The **Minimum** is per-coin and small (here `$0.01`) — there is no flat minimum.
+- **Gas priority** — **Low / Normal / Fast**. Faster confirmation costs more miner fee.
+- **Exchange rate in USD** — a helper to size the amount in dollars.
+
+The dialog shows the running **Total** as *Amount + Miner Fee + System Fee*.
+
+<Frame caption="The Withdraw dialog. Note the Total breakdown and the 0.5% system-fee line.">
+  <img src="/images/make-a-withdrawal/02-withdraw-form.png" alt="CryptoNow Withdraw dialog with currency, source wallet, external destination, amount, gas priority, and a Total of amount plus miner fee plus system fee" />
+</Frame>
+
+<Note>
+A **0.5% system fee** applies to withdrawals — the dialog states this directly. On a 2 USDT withdrawal that's 0.01 USDT.
+</Note>
+</Step>
+
+<Step title="Confirm with your email code">
+Press **Submit**. CryptoNow emails a one-time code — enter it and click **Confirm**.
+
+<Frame caption="First factor: the code sent to your email.">
+  <img src="/images/make-a-withdrawal/03-2fa-email.png" alt="Enter 2FA dialog asking for the code from email" />
+</Frame>
+
+<Frame caption="The email carrying the one-time code.">
+  <img src="/images/make-a-withdrawal/04-2fa-email-message.png" alt="CryptoNow 2FA email containing a confirmation code" />
+</Frame>
+</Step>
+
+<Step title="Confirm with Google Authenticator">
+Then enter the current code from **Google Authenticator** and click **Confirm**. Withdrawals require **both** factors.
+
+<Frame caption="Second factor: your authenticator code.">
+  <img src="/images/make-a-withdrawal/05-2fa-authenticator.png" alt="Enter 2FA dialog asking for the Google Authenticator code" />
+</Frame>
+</Step>
+
+<Step title="Done">
+You'll see a **Success** confirmation, and the **Withdrawal** appears in your transaction list with its hashes and the exact miner and system fees. The wallet balance drops by the amount plus the system fee; the miner fee is paid in the network's native coin.
+
+<Frame caption="Withdrawal complete — balance reduced by the amount plus the 0.01 USDT system fee; miner fee paid in ETH.">
+  <img src="/images/make-a-withdrawal/06-success.png" alt="CryptoNow Home showing a completed withdrawal of 2 USDT, balance now 7.94, with miner and system fee detail" />
+</Frame>
+</Step>
+</Steps>
+
+## Where the fees come from
+
+| Fee | Paid in | Taken from |
+|---|---|---|
+| **Miner (network) fee** | the network's native coin (ETH, BNB, TRX…) | the source account wallet |
+| **System fee (0.5%)** | the coin being withdrawn | the source account wallet |
+
+<Warning>
+The **gas-payer toggle** in your account settings ("Miner Fee for withdrawal / replenishment pays…") governs **client-wallet** flows — replenishment sweeps and client-wallet withdrawals. An **account-wallet** send like this one always draws its miner fee from the account wallet itself, so keep a little native gas there.
+</Warning>
+
+## Worked example
+
+Withdrawing **2 USDT** from a 9.95 USDT wallet:
+
+- Recipient receives exactly **2 USDT**.
+- **System fee:** 0.01 USDT (0.5% of 2).
+- **Miner fee:** ~0.0000883 ETH, paid from the account wallet's ETH.
+- New USDT balance: **7.94** (9.95 − 2 − 0.01).
+
+{/* VIDEO (optional sizzle, ~20s): open Withdraw → fill amount + Fast → Total breakdown → dual 2FA → Success + tx row */}
