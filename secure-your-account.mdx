@@ -1,32 +1,73 @@
 ---
 title: "Secure your account"
-description: "Enable two-factor authentication and understand the security settings that protect your funds."
+description: "Turn on email and Google Authenticator 2FA, save your backup phrase, and lock down API access — before you touch any funds."
 ---
 
-Before you can withdraw funds or view keys, you need your security set up. This takes a few minutes and only has to be done once.
+CryptoNow doesn't force two-factor authentication at sign-up, but it's required
+the moment you do anything that matters.
 
-{/* Guidde video embed goes here */}
+<Warning>
+  **Email 2FA and Google Authenticator are effectively mandatory.** Both must be
+  on before you can withdraw, move funds, view private or API keys, or delete a
+  wallet or account. Set them up now so nothing blocks you later.
+</Warning>
+
+Everything here lives under **Settings → Security**.
+
+<Frame caption="The Security section before setup — email unconfirmed, 2FA off.">
+  <img src="/images/secure-your-account/01-security-overview.png" alt="CryptoNow security settings with email 2FA and two-factor authentication disabled" />
+</Frame>
 
 <Steps>
-  <Step title="Enable Email 2FA">
-    {/* Guidde steps */}
+  <Step title="Confirm your email">
+    Under **Confirm E-mail**, click **Send link**, then open the message and
+    confirm. The status flips to **Confirmed**.
   </Step>
+
+  <Step title="Enable email 2FA">
+    Click **Enable 2FA** under **Enable E-mail 2FA**. From now on, a code is
+    emailed to you for sensitive actions.
+  </Step>
+
   <Step title="Enable Google Authenticator">
-    {/* Guidde steps */}
+    Under **Two-factor authentication**, click **Enable 2FA**, scan the QR code
+    with Google Authenticator (or any TOTP app), and enter the 6-digit code to
+    confirm.
+
+    <Frame caption="Scan the QR with your authenticator app, then enter the code.">
+      <img src="/images/secure-your-account/02-google-auth-setup.png" alt="Enable 2FA dialog showing a QR code to scan with Google Authenticator" />
+    </Frame>
+
+    <Note>
+      Store your authenticator backup somewhere safe. If you lose the device,
+      regaining access means contacting support.
+    </Note>
   </Step>
+
   <Step title="Save your backup phrase">
-    {/* Guidde steps */}
+    Under **Backup Phrase**, click **Start Backup** and write down the 12 words
+    in order, offline. This recovers your account if you lose your password.
   </Step>
 </Steps>
 
-<Warning>
-  **Email \+ Google Authenticator are effectively mandatory.** You won't be able to withdraw, move funds, view private keys, or delete a wallet until both are enabled. Set them up now, not at your first withdrawal.
-</Warning>
+Both factors on, your account looks like this:
 
-<Warning>
-  **Never disable autosign.** It's on by default and it's load-bearing — turning it off silently breaks token checkouts, deposit sweeps, swaps, and auto-swap. Only native-currency top-ups keep working.
-</Warning>
+<Frame caption="Email 2FA and two-factor authentication both enabled.">
+  <img src="/images/secure-your-account/03-2fa-enabled.png" alt="CryptoNow security settings showing email 2FA and two-factor authentication both enabled" />
+</Frame>
+
+## Restrict API access (for API users)
+
+If you'll use the API, lock it down under **Settings → Security** by allowlisting
+the **IP**, **Origin**, and **User-Agent** that may call it. Skip this if you're
+not building an integration.
+
+<Frame caption="Allowlist the IP, origin, and user-agent that can use your API keys.">
+  <img src="/images/secure-your-account/04-api-allowlist.png" alt="API security settings with whitelist IP, origin, and user agent fields" />
+</Frame>
 
 <Note>
-  Your **backup phrase** is 12 words, generated once, and can't be changed. Store it somewhere safe — it's how you reset your password.
+  One thing **not** to touch: leave **autosign on**. It's on by default and
+  signs your checkouts, sweeps, and swaps automatically — turning it off breaks
+  those flows.
 </Note>
