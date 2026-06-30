@@ -1,0 +1,41 @@
+---
+title: "How wallet balances work"
+description: "Account wallets versus client wallets, and why the number on a client wallet is throughput — not a spendable balance."
+---
+
+CryptoNow has two kinds of wallets, and the figure shown on each means something different. Getting this right matters: the number on a **client wallet** is not money you can spend — it's a running total of everything that has ever passed through.
+
+| | Account wallet | Client wallet |
+|---|---|---|
+| **What it is** | Your own treasury wallet | A deposit address assigned to one end-client, per network |
+| **Balance shown** | Your **actual, spendable** balance | **Cumulative throughput** — everything ever received |
+| **Permanent?** | Yes | Yes, for a static/API client wallet (same address every time) |
+| **You pay out from** | This one | Never — funds have already swept out of here |
+
+<Info>
+Find both under **Wallets** in the sidebar: **Account wallets** (your treasury) and **Client wallets** (per-client deposit addresses).
+</Info>
+
+## Where the money actually sits
+
+When a client sends funds to their client wallet, those funds **auto-forward (sweep)** to your default **account wallet** as a **replenishment** — net of the standard **0.5% replenishment fee** — and a **callback** fires. So your spendable money lives in the account wallet, not the client wallet.
+
+<Warning>
+The client wallet's "balance" is **cumulative throughput**, not a current or spendable balance. Don't read it as funds on hand and don't try to pay out against it. Always use the **account wallet's** real balance for payouts.
+</Warning>
+
+## Worked example
+
+A client sends **10 USDT** to their permanent deposit address:
+
+- The funds sweep to your account wallet, which credits **≈9.95 USDT** (10 − 0.5% replenishment fee).
+- A callback fires, carrying your `clickId` so you can attribute the deposit.
+- The **client wallet** figure goes up by the full 10 (throughput); the **account wallet** shows the real **≈9.95** you can actually use.
+
+<Note>
+**Permanent vs single-use.** A static client wallet keeps the **same address every time**, so repeat deposits are always credited — the right pattern for recurring depositors. A **checkout charge** mints a single-use address instead; re-sends to a past charge address are **not** tracked. The "same address every time" promise is the static client wallet, not a checkout link.
+</Note>
+
+<Tip>
+Reconcile deposits against your own system by matching on **`clickId`** (it echoes back on the transaction as `outsideOrderId`).
+</Tip>
