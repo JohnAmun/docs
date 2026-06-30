@@ -1,28 +1,92 @@
 ---
 title: "Recover a wrongly-sent token"
-description: "What to do when a customer sends the wrong token or network — and how to recover funds that didn't auto-credit."
+description: "When someone sends an unsupported token to one of your client wallets, you can still get it out — by exporting that wallet's private key and moving the token from an external wallet you control."
 ---
 
-"I sent the wrong token" is the single most common crypto-payment support issue. CryptoNow handles most of it automatically, and the rest is recoverable.
+CryptoNow automatically credits and sweeps the tokens it supports. If a client sends a **token CryptoNow doesn't recognise** (an obscure ERC-20, an LP token, the wrong network's asset) to one of your static client wallets, it won't auto-credit — it simply sits at that address on-chain, untouched.
 
-{/* Guidde video embed goes here */}
-
-<Info>
-  **First, check whether it auto-credited.** If the customer sent a _recognised_ token on the same network (e.g. USDC instead of USDT-ERC20), it's **auto-detected, credited, and forwarded** — nothing to do.
-</Info>
-
-<Steps>
-  <Step title="Confirm the token wasn't auto-credited">
-    {/* Guidde steps */}
-  </Step>
-  <Step title="Export the client wallet's private key">
-    {/* Guidde steps — export the exportable per-client private key */}
-  </Step>
-  <Step title="Import it to recover the funds">
-    {/* Guidde steps — import into MetaMask / Trust / Ctrl and move the funds */}
-  </Step>
-</Steps>
+Because **you hold the keys to every wallet**, nothing is lost. You export the client wallet's private key, import it into any self-custody wallet, and send the token wherever you want.
 
 <Warning>
-  Only _unrecognised_ tokens need manual recovery. Recovery is done by exporting the **per-client private key** from that client wallet and importing it into a self-custody wallet — there's no other path, so handle the key carefully.
+Exporting a private key gives **full control of that wallet** to anyone who holds it. Treat this as a break-glass recovery: do it deliberately, never paste the key anywhere untrusted, and consider the wallet's key "spent" afterwards.
 </Warning>
+
+<Info>
+**The wallet needs native gas to send the token out.** A client wallet usually keeps a little ETH/BNB/etc. from earlier sweeps. If it's empty, send a small amount of the network's native coin to the wallet address first.
+</Info>
+
+## Recover the token
+
+<Steps>
+<Step title="Confirm what's stuck (optional)">
+Paste the client wallet address into a block explorer (Etherscan for EVM). You'll see the incoming token transfer that never got swept.
+
+<Frame caption="The unrecognised token sitting in the client wallet — received, but never swept to the account wallet.">
+  <img src="/images/recover-a-wrongly-sent-token/01-token-on-explorer.png" alt="Etherscan showing an unrecognised token transferred into a CryptoNow client wallet" />
+</Frame>
+</Step>
+
+<Step title="Export the client wallet's private key">
+In CryptoNow, go to **Wallets → Client wallets**, search for the wallet by address, open the **⋮** menu and choose **Show private key**.
+
+<Frame caption="Wallets → Client wallets → ⋮ → Show private key.">
+  <img src="/images/recover-a-wrongly-sent-token/02-show-private-key.png" alt="CryptoNow client wallet row with the actions menu open on Show private key" />
+</Frame>
+</Step>
+
+<Step title="Confirm with 2FA">
+Enter the code from **Google Authenticator** and send it. (See [Secure your account](/secure-your-account) if 2FA isn't set up.)
+
+<Frame caption="2FA gates the key reveal.">
+  <img src="/images/recover-a-wrongly-sent-token/03-private-key-2fa.png" alt="Your private key dialog asking for the Google Authenticator code" />
+</Frame>
+</Step>
+
+<Step title="Copy the private key">
+The key is shown once — copy it.
+
+<Frame caption="Copy the private key (blurred here).">
+  <img src="/images/recover-a-wrongly-sent-token/04-private-key-revealed.png" alt="Your private key dialog with the key value and a copy prompt" />
+</Frame>
+</Step>
+
+<Step title="Import it into an external wallet">
+Open any self-custody EVM wallet — this example uses **Ctrl Wallet**; **MetaMask**, **Phantom**, etc. work too, depending on the token's network. Choose **Add → Import wallet or account → Import with Private Key**, pick the network, paste the key, and give it a name.
+
+<Frame caption="Import with Private Key.">
+  <img src="/images/recover-a-wrongly-sent-token/05-import-with-private-key.png" alt="External wallet import menu with Import with Private Key option" />
+</Frame>
+
+<Frame caption="Paste the exported key (blurred), select the network, name the account.">
+  <img src="/images/recover-a-wrongly-sent-token/06-import-paste-key.png" alt="External wallet Import Private Key screen with network, account name, and key field" />
+</Frame>
+</Step>
+
+<Step title="The token appears">
+The imported wallet now shows the stuck token alongside any leftover native gas.
+
+<Frame caption="The wrongly-sent token is now accessible, with a little ETH on hand for gas.">
+  <img src="/images/recover-a-wrongly-sent-token/07-token-now-visible.png" alt="External wallet showing the recovered token and ETH balance" />
+</Frame>
+</Step>
+
+<Step title="Send it where it belongs">
+Send the token out — to the client's correct wallet, to your account wallet, or to an exchange. The network fee is paid from the native coin on the wallet.
+
+<Frame caption="Send the token to the destination of your choice.">
+  <img src="/images/recover-a-wrongly-sent-token/08-send-token.png" alt="External wallet send screen with token amount and destination address" />
+</Frame>
+
+<Frame caption="Confirm — gas is paid in the wallet's native coin.">
+  <img src="/images/recover-a-wrongly-sent-token/09-confirm-send.png" alt="External wallet confirm-send screen showing from, to, network, and estimated network fee" />
+</Frame>
+</Step>
+</Steps>
+
+## Why this happens
+
+CryptoNow sweeps **supported** assets to your account wallets automatically. Anything outside that set — an LP token, a one-off ERC-20, a token sent on a network the wallet wasn't created for — lands at the address but isn't tracked. The static client wallet is a **real on-chain wallet you control**, so the funds are always reachable with its key; this recovery is simply how you reach them.
+
+<Note>
+Send the token to whichever wallet you want it in — typically the client's correct address or your own account wallet — and the recovery is complete.
+</Note>
