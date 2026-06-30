@@ -1,25 +1,149 @@
 ---
 title: "Permanent deposit addresses"
-description: "Give each customer a fixed deposit address so repeat deposits always credit correctly."
+description: "Give each customer a fixed deposit address — minted by the API when they start a deposit — so repeat deposits always credit, funds settle to your treasury, and a callback fires on every payment."
 ---
 
-For deposit-driven businesses (casinos, brokers, prop firms), each customer gets a **permanent** address they can reuse for every deposit.
+For deposit-driven businesses (casinos, brokers, prop firms), each customer gets a **permanent** deposit address they reuse for every deposit. Your platform calls the API to mint that address the moment a customer starts a deposit, shows it natively in your own UI, and funds sweep into your account (treasury) wallet automatically — with a **callback** on every payment so you can credit the user. A returning customer reuses the **same address**, so repeat deposits are never lost.
 
-{/* Guidde video embed goes here */}
+The deposit loop:
 
 <Steps>
-  <Step title="Create a client wallet for the customer">
-    {/* Guidde steps */}
-  </Step>
-  <Step title="Display the address (and QR) in your platform">
-    {/* Guidde steps */}
-  </Step>
+  <Step title="The customer starts a deposit in your platform">picks a method and confirms.</Step>
+  <Step title="Your backend creates (or returns) that user's client wallet via the API">on-demand — the address is minted at this moment.</Step>
+  <Step title="Your platform shows the returned address + QR">natively, no redirect.</Step>
+  <Step title="The customer sends funds">they land at the address.</Step>
+  <Step title="Funds sweep to your account wallet, and a callback fires">you credit the user in your system.</Step>
 </Steps>
 
-<Info>
-  **Static client wallet vs checkout charge — critical.** A client wallet assigned to a customer is **permanent**: repeat deposits to the same address are **always credited**. A **checkout charge** mints a **single-use** wallet — re-sending to a previous charge address is **not tracked**. "Same address every time" applies to client wallets only.
-</Info>
+<Info>**Static client wallet vs checkout charge — critical.** A client wallet assigned to a customer is **permanent**: repeat deposits to the same address are **always credited**. A checkout charge mints a **single-use** wallet — re-sending to a previous charge address is **not tracked**. "Same address every time" applies to client wallets only.</Info>
 
-<Warning>
-  The **balance shown on a client wallet is cumulative throughput** (lifetime total received), **not** a current balance. Funds sweep to your treasury instantly, so a client wallet showing a large number is normal and holds nothing.
-</Warning>
+{/* VIDEO (optional sizzle, ~20s): deposit screen in-platform → Confirm → address appears → same address on a repeat deposit → funds land in the account wallet. */}
+
+## 1. Set the callback URL, then generate API keys
+
+Order matters: set the **Callback Url** *first*, Submit, and only **then** generate keys. In **Settings → Account Data**, enter your callback endpoint, Submit, then click **Generate new API keys** — you get a **Public key** and **Private key**.
+
+<Frame caption="Callback URL set, then API keys generated.">
+  <img src="/images/full-integration/01-callback-and-keys.png" alt="Account settings showing Public/Private API keys and the Callback Url field" />
+</Frame>
+
+<Warning>The **Private key** is server-side only — never ship it to the browser. Treat the keys and the passphrase below as secrets.</Warning>
+
+## 2. Get your account wallet's Wallet ID + passphrase
+
+Wallet operations (and withdrawals) need the **account wallet's Wallet ID + passphrase** for the network you settle on — here the **EVM / Ethereum** account wallet. In **Wallets → Account wallets**, open the wallet's menu → **Passphrase** → **Send code** (passes 2FA) → the **Wallet ID** and **Passphrase** are revealed.
+
+<Frame caption="Account wallet menu → Passphrase → Send code (2FA).">
+  <img src="/images/full-integration/02-wallet-passphrase-2fa.png" alt="Merchant wallet menu with Passphrase tab and Send code button" />
+</Frame>
+
+<Frame caption="Wallet ID + passphrase for the EVM account wallet.">
+  <img src="/images/full-integration/03-wallet-id-passphrase.png" alt="Revealed Wallet ID and Passphrase" />
+</Frame>
+
+<Note>This is the **account** wallet's ID. You never fetch a client wallet's ID — client wallets are created **by the API**, on demand, in the next step.</Note>
+
+## 3. The customer starts a deposit — and the wallet is minted
+
+In your platform's deposit screen, the customer picks the method and clicks **Confirm**.
+
+<Frame caption="Deposit method selection in your platform. Confirm triggers the wallet creation.">
+  <img src="/images/full-integration/04-platform-deposit-method.png" alt="Platform deposit screen, USDT ERC20 method selected, Confirm button" />
+</Frame>
+
+That **Confirm** is what triggers your backend to call the API. API base: `https://napi.crypto-now.io`. Authenticate with the keys, look up the `currencyId` for the network, then create the client wallet (`typeWallet: user`) — the response's `address` is what you display.
+
+```bash
+# 1. Authenticate → JWT
+curl -X POST https://napi.crypto-now.io/api/public/auth \
+  -H "Content-Type: application/json" \
+  -d '{ "publicKey": "<PUBLIC_KEY>", "privateKey": "<PRIVATE_KEY>" }'
+# → { "token": "<JWT>" }
+```
+
+```bash
+# 2. Find the currencyId (e.g. USDT-ERC20)
+curl https://napi.crypto-now.io/api/public/currency \
+  -H "Authorization: Bearer <JWT>"
+```
+
+```bash
+# 3. Create the user's client wallet → returns its address
+curl -X POST https://napi.crypto-now.io/api/public/wallet/<CURRENCY_ID> \
+  -H "Authorization: Bearer <JWT>" \
+  -H "Content-Type: application/json" \
+  -d '{ "typeWallet": "user" }'
+# → { "data": { "id": "<walletId>", "address": "0x...", "passphrase": "..." } }
+```
+
+Your platform shows the returned **address + QR**:
+
+<Frame caption="The minted address + QR, shown natively, awaiting payment.">
+  <img src="/images/full-integration/05-platform-deposit-address.png" alt="Deposit screen showing address and QR, status Waiting for money" />
+</Frame>
+
+Store `user → { walletId, address }` and reuse it for that user. The wallet you just minted now appears in CryptoNow under **Client wallets** at `$0.00` — it didn't exist before the customer confirmed:
+
+<Frame caption="The wallet now exists in CryptoNow — created by the Confirm above.">
+  <img src="/images/full-integration/06-client-wallet-created.png" alt="Client wallets list showing the newly created EVM USDT wallet at $0.00" />
+</Frame>
+
+<Tip>There's also a Node SDK — `crypto-now-node-api-sdk` (npm) — wrapping these calls.</Tip>
+
+## 4. Repeat deposits reuse the same address
+
+Because you stored and reuse the wallet, a returning customer gets the **same address**. Below, a second, separate deposit (different deposit ID) resolves to the identical address — so a customer who re-uses an old address is still credited.
+
+<Frame caption="A later deposit (new ID) → the same address.">
+  <img src="/images/full-integration/07-platform-same-address.png" alt="A second deposit request showing the same destination address" />
+</Frame>
+
+## 5. The customer pays
+
+Once the payment lands, your platform shows it as deposited:
+
+<Frame caption="Deposit confirmed in-platform.">
+  <img src="/images/full-integration/08-platform-deposited.png" alt="Deposit status Deposited" />
+</Frame>
+
+## 6. Receive the callback
+
+CryptoNow fires a callback to your URL on each client-wallet replenishment. The body is encrypted; the JWT carries the `walletId` and an encrypted `salt`, so the decrypt is self-contained (decrypt code for Node / PHP / Python is in the API docs). Decrypted, it carries the transaction details you use to credit the user.
+
+```js
+import CryptoJS from 'crypto-js';
+
+const decrypt = (encrypted, salt) =>
+  CryptoJS.AES.decrypt(encrypted, salt).toString(CryptoJS.enc.Utf8);
+
+// req.headers.authorization = "Bearer <jwt>"; req.body.data = encrypted payload
+const { id: walletId, salt } = decodeJwt(req.headers.authorization.slice(7));
+const finalSalt = decrypt(salt, walletId);
+const payload = JSON.parse(decrypt(req.body.data, finalSalt));
+// → { typeTransaction: "Replenishment", currency: "USDT", amount: "10",
+//     wallet: { id }, payer, incomingTxHash, ... }
+```
+
+Confirm deliveries under **Settings → Outgoing Webhooks** — an `InitialReplenishmentDetect` then a `Replenishment`, both delivered (Status `True`):
+
+<Frame caption="Webhooks delivered, with the decrypted payload.">
+  <img src="/images/full-integration/09-webhooks.png" alt="Outgoing Webhooks list with Replenishment entries and the JSON payload" />
+</Frame>
+
+<Note>If you passed a `clickId` when creating the charge/wallet, it comes back as `outsideOrderId` — use it to map the payment to your order/user.</Note>
+
+## 7. Settlement: throughput vs. actual balance
+
+The **client wallet** doesn't hold funds — it sweeps everything to your account wallet — so the figure it shows is **cumulative throughput**, not a live balance. Here it reads **10 USDT** (the amount that passed through):
+
+<Frame caption="Client wallet — 10 USDT throughput (not a current balance).">
+  <img src="/images/full-integration/10-client-wallet-throughput.png" alt="Client wallet showing 10 USDT throughput" />
+</Frame>
+
+The **account wallet** holds the actual funds: **9.95 USDT** — the 10 USDT deposit minus the **0.5% system fee** (0.05 USDT) on replenishment. The swept replenishment transaction shows the client → account hop, the miner fee (paid in ETH from the account wallet) and the on-chain hashes.
+
+<Frame caption="Account wallet — 9.95 USDT actual, after the 0.5% replenishment fee and sweep.">
+  <img src="/images/full-integration/11-account-wallet-actual.png" alt="Account wallet balance 9.95 USDT with the replenishment transaction details" />
+</Frame>
+
+<Warning>This whole flow relies on **auto-sign being ON** (the default). It fronts gas for the sweep and lets the callback complete — disabling it breaks deposits. See **Secure your account**.</Warning>
