@@ -1,21 +1,102 @@
 ---
 title: "Embed payments on your site"
-description: "Add a pay button or embed the checkout widget directly into your website."
+description: "Put a CryptoNow checkout on your own website — a 'Pay with Crypto' button or an inline iframe. No backend, no card networks in between."
 ---
 
-Beyond sharing a link, you can place payments directly on your own site with a button or an inline widget.
+You can drop a checkout onto your site two ways: a **button** that opens the CryptoNow payment widget, or an **iframe** that shows it inline. Both are copy-paste — no API keys, no server code. The customer pays on CryptoNow's hosted widget, and the payment settles to your account wallet carrying your order's `clickId` for reconciliation.
 
-{/* Guidde video embed goes here */}
+<Info>
+The widget is CryptoNow's hosted page (the footer reads "Payments processed by Crypto Now"). A **custom domain** can white-label that URL — see the Tip at the bottom.
+</Info>
 
 <Steps>
-  <Step title="Get your embed snippet">
-    {/* Guidde steps — copy the Embed / button code from the checkout */}
-  </Step>
-  <Step title="Add it to your site">
-    {/* Guidde steps — paste button or iFrame */}
-  </Step>
+
+<Step title="Get the embed code">
+Open the checkout in **Payments → Checkouts**, then **Product information**. You'll see three tabs:
+
+- **Link** — a plain URL (opens the widget in a new tab; good for emails/QR).
+- **Embed** — a ready-made **button** snippet.
+- **iFrame** — an inline embed snippet.
+
+Tick **amount and fiatCurrency** if it's a Cart checkout (so the snippet carries the basket total), and **clickId** to attribute the payment to a specific order or customer.
+
+<Frame caption="Dashboard generates Link, Embed and iFrame snippets">
+<img src="/images/embed-payments-on-your-site/01-embed-code.png" alt="Product information modal with Link, Embed and iFrame tabs and the embed snippet" />
+</Frame>
+
+The **Embed** (button) snippet:
+
+```html
+<div>
+  <a class="buy-with-crypto" href="https://checkouts.crypto-now.io/checkout/{checkoutId}">Pay with Crypto</a>
+</div>
+```
+
+The **iFrame** (inline) snippet:
+
+```html
+<iframe src="https://checkouts.crypto-now.io/checkout/{checkoutId}" frameborder="0"></iframe>
+```
+</Step>
+
+<Step title="Add it to your site">
+Paste the button (or iframe) snippet into your page. The button renders wherever you place it — here on a storefront's cart.
+
+<Frame caption="The 'Pay with Crypto' button on a merchant storefront">
+<img src="/images/embed-payments-on-your-site/02-shop-button.png" alt="Merchant storefront with a Pay with Crypto button" />
+</Frame>
+</Step>
+
+<Step title="Customer pays">
+The customer fills their cart and selects **Pay with Crypto**. The hosted widget opens with the order total.
+
+<Frame caption="Cart total ready to pay">
+<img src="/images/embed-payments-on-your-site/03-add-to-cart.png" alt="Cart with an item and the Pay with Crypto button enabled" />
+</Frame>
+
+<Frame caption="The hosted widget opens">
+<img src="/images/embed-payments-on-your-site/04-widget-opens.png" alt="CryptoNow payment widget opening with the order total" />
+</Frame>
+
+They choose a currency and network, then **Proceed to the payment**.
+
+<Frame caption="Choose currency and network">
+<img src="/images/embed-payments-on-your-site/05-choose-currency.png" alt="Currency and network selection in the widget" />
+</Frame>
+
+The widget shows the exact amount, a deposit address, and a QR code, with a countdown until the charge expires.
+
+<Frame caption="Pay to the address or scan the QR">
+<img src="/images/embed-payments-on-your-site/06-pay-address-qr.png" alt="Payment screen with amount, address and QR code" />
+</Frame>
+</Step>
+
+<Step title="Payment confirmed">
+Once the funds confirm, the widget shows success with the received amount and transaction hash.
+
+<Frame caption="Payment received">
+<img src="/images/embed-payments-on-your-site/07-payment-success.png" alt="Payment received successfully screen with amount and hash" />
+</Frame>
+</Step>
+
+<Step title="Reconcile in your dashboard">
+The payment appears in **Transaction's → History** as a **Replenishment**, carrying your **clickId** and an **IncomingHash** that matches the widget's hash — so you can tie each on-chain payment back to the exact order.
+
+<Frame caption="The payment, attributed by clickId">
+<img src="/images/embed-payments-on-your-site/08-tx-attribution.png" alt="Transaction history showing the replenishment with clickId and incoming hash" />
+</Frame>
+</Step>
+
 </Steps>
 
+<Note>
+**Button vs iframe.** The **button** opens the widget in a popup or new tab. The **iframe** keeps the widget inline on your page so the customer visually stays on your site. Both run the same hosted checkout.
+</Note>
+
+<Note>
+**Settlement.** The funds land in your account wallet as a replenishment, net of the standard 0.5% replenishment fee, with your `clickId` echoed back on the transaction (`outsideOrderId` in the charge response). Match on `clickId` to reconcile against your store.
+</Note>
+
 <Tip>
-  Use a **button** for a simple "pay now" action, or an **iFrame** to render the full checkout inline. Both come from the same checkout you already created.
+The widget URL is `checkouts.crypto-now.io`. Set a **custom domain** on the checkout to white-label it as your own.
 </Tip>
