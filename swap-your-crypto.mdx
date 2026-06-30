@@ -1,28 +1,94 @@
 ---
 title: "Swap your crypto"
-description: "Exchange one currency for another from inside CryptoNow."
+description: "Exchange one cryptocurrency for another straight from your account wallets, settled through an exchange partner. Mainnet only."
 ---
 
-Swap converts crypto you hold into another currency — useful for moving into stablecoins or acquiring a gas token.
-
-{/* Guidde video embed goes here */}
-
-<Steps>
-  <Step title="Choose what to send and receive">
-    {/* Guidde steps */}
-  </Step>
-  <Step title="Pick source and destination wallets">
-    {/* Guidde steps */}
-  </Step>
-  <Step title="Review offers and confirm">
-    {/* Guidde steps — compare rate/ETA, fixed vs floating, 2FA */}
-  </Step>
-</Steps>
+Swap lets you exchange a currency you hold for one you need, without leaving CryptoNow. Funds move out of one account wallet and the exchanged currency lands back in another.
 
 <Info>
-  **What a swap really costs:** the network **miner fee** \+ a **0.5% system fee** \+ the provider's **rate spread** (baked into the "you get" amount). It is **not** a flat 0.5%.
+Swap runs on **mainnet only**. If you open it on a testnet network, you'll be prompted to switch before you can continue.
 </Info>
 
+<Note>
+The destination-currency wallet must already exist before you swap. If you don't have a wallet in the currency you want to receive, create it first under **Account wallets**.
+</Note>
+
+<Steps>
+
+<Step title="Open Swap and start a new one">
+Go to **Transaction's → Swap** and select **Create New Swap**. The first time, your swap history is empty.
+
+<Frame caption="Swap history — start with Create New Swap">
+<img src="/images/swap-your-crypto/01-swap-history.png" alt="Swap history page with Create New Swap button" />
+</Frame>
+</Step>
+
+<Step title="Set what you send and what you get">
+In **YOU SEND**, enter the amount and pick the currency to spend. In **YOU GET**, pick the currency to receive — the estimated amount fills in automatically. **MAX** fills in the largest amount you can swap from that wallet after fees.
+
+<Frame caption="Choose the send currency and the amount">
+<img src="/images/swap-your-crypto/02-you-send-currency.png" alt="Selecting the currency to send from the dropdown" />
+</Frame>
+</Step>
+
+<Step title="Review the cost breakdown">
+Before you go further, the **Total** line itemises the full cost: the amount, the network **Miner Fee** (paid in the source network's native coin), and the **System Fee**. The exchange partner's rate is applied on top when you view offers.
+
+<Frame caption="Amount, Miner Fee and System Fee shown before offers">
+<img src="/images/swap-your-crypto/03-amount-and-fees.png" alt="Total line showing amount, miner fee and system fee, with source and destination wallets selected" />
+</Frame>
+</Step>
+
+<Step title="View offers and pick an exchange service">
+Select **View offers**. Each offer shows the **Rate**, **ETA**, and a **KYC Risk** indicator. Pick one and select **Exchange**.
+
+<Frame caption="Exchange service offer with rate, ETA and KYC risk">
+<img src="/images/swap-your-crypto/04-exchange-service.png" alt="Select exchange service panel showing rate, ETA and KYC risk" />
+</Frame>
+</Step>
+
+<Step title="Check the summary">
+The summary confirms the exact send and receive amounts, the **exchange rate**, the **Partner**, and the rate **Type** — **Fixed** (rate locked for a short window) or **Floating** (final amount can move with the market).
+
+<Frame caption="Summary before confirming the swap">
+<img src="/images/swap-your-crypto/05-summary.png" alt="Swap summary showing send and receive amounts, exchange rate, partner and fixed type" />
+</Frame>
+</Step>
+
+<Step title="Confirm with 2FA">
+Enter the code from your Google Authenticator and select **Confirm**. If the locked rate expires while you're confirming, use **Update rate** and try again.
+
+<Frame caption="Confirm the swap with your authenticator code">
+<img src="/images/swap-your-crypto/06-confirm-2fa.png" alt="Enter 2FA modal requesting Google Authenticator code" />
+</Frame>
+</Step>
+
+<Step title="Done">
+You'll see a confirmation that the swap was processed.
+
+<Frame caption="Swap successful">
+<img src="/images/swap-your-crypto/07-success.png" alt="Swap successful confirmation" />
+</Frame>
+</Step>
+
+<Step title="Track it in Transactions">
+The swap appears in **Transaction's → History**, first as **Pending**, then **Done**. Expand it to see the Payment ID, addresses, Miner Fee, System Fee, and on-chain hash. The exchanged currency arrives in your destination account wallet as a **Replenishment** entry.
+
+<Frame caption="Swap pending, with full fee and hash detail">
+<img src="/images/swap-your-crypto/08-tx-pending.png" alt="Transactions list showing the swap as pending with fee and hash detail" />
+</Frame>
+
+<Frame caption="Swap done — received currency lands as a Replenishment">
+<img src="/images/swap-your-crypto/09-tx-done.png" alt="Transactions list showing the swap done and the received ETH as a replenishment" />
+</Frame>
+</Step>
+
+</Steps>
+
 <Warning>
-  Swap is **mainnet only** — it doesn't run on testnet.
+On a **Floating** rate the amount you receive can change between confirmation and settlement. Choose **Fixed** if you need the quoted amount guaranteed within the partner's time window.
 </Warning>
+
+<Tip>
+**Worked example.** 5 USDT (ERC-20) → ≈0.00311 ETH via *sideshift* on a fixed rate. The Total line showed a miner fee of ≈0.0000226 ETH and a System Fee of 0.05 USDT; the received ETH landed in the Ethereum account wallet as a Replenishment.
+</Tip>
