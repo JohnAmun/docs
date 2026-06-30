@@ -1,25 +1,51 @@
 ---
 title: "Set up auto-swap"
-description: "Automatically convert incoming deposits into a target currency, like a stablecoin."
+description: "Create a per-account rule that automatically converts incoming crypto to the coin you want to hold, every time a wallet is topped up past a threshold."
 ---
 
-Auto-swap converts deposits into a target currency automatically once a wallet crosses a threshold — a common way to move volatile deposits into stablecoins.
+Auto-swap turns one currency into another automatically. You set a rule once — *when this wallet receives at least $X, convert it from coin A to coin B and send it here* — and CryptoNow runs the conversion on every qualifying replenishment, with no manual step. It's how you keep your treasury in a stable coin without watching wallets.
 
-{/* Guidde video embed goes here */}
+Rules are **per Account**, so set the **Account** toggle (top-right) to the account you want the rule on before you start.
+
+{/* VIDEO (optional sizzle, ~20s): open Settings, scroll to Auto swap, Create new, fill the rule, Submit, rule appears. */}
 
 <Steps>
-  <Step title="Open auto-swap in account settings">
-    {/* Guidde steps */}
+  <Step title="Open Settings and find Auto swap">
+    Go to **Settings** (the gear in the left nav) and scroll to the **Auto swap** card. Click **Create new**.
+
+    <Frame caption="The Auto swap card on the Settings page.">
+      <img src="/images/set-up-auto-swap/01-auto-swap-settings.png" alt="Auto swap card with a Create new button" />
+    </Frame>
   </Step>
-  <Step title="Add a rule">
-    {/* Guidde steps — you send, you get, minimum USD threshold, source + destination wallet */}
+
+  <Step title="Define the rule">
+    Fill in the five fields, then click **Submit**:
+
+    - **Name of rule** — a label for your own reference (e.g. *BTC to USDT (ERC20)*).
+    - **You send** — the currency to convert.
+    - **You get** — the currency to receive.
+    - **Minimum amount in USD** — the threshold. When a top-up brings the sender wallet to at least this value, the swap fires.
+    - **Sender's wallet** — the wallet that's watched; its incoming funds get converted.
+    - **Destination wallet** — where the converted currency lands.
+
+    <Frame caption="A completed rule: convert incoming BTC to USDT once a top-up reaches $50.">
+      <img src="/images/set-up-auto-swap/02-add-rule.png" alt="Auto swap rule form with name, you send, you get, minimum USD, sender and destination wallets" />
+    </Frame>
+  </Step>
+
+  <Step title="Confirm the rule is live">
+    The saved rule appears in the Auto swap card, with edit and delete controls. It's now active and will run on the next qualifying replenishment.
+
+    <Frame caption="The saved rule, ready to edit or remove.">
+      <img src="/images/set-up-auto-swap/03-rule-created.png" alt="Saved auto swap rule listed with edit and delete icons" />
+    </Frame>
   </Step>
 </Steps>
 
-<Info>
-  An auto-swap rule has a **minimum USD threshold** — the swap only triggers once a replenished wallet crosses it. It uses the same swap engine, so the same cost applies: **miner fee \+ 0.5% \+ provider spread**.
-</Info>
-
 <Warning>
-  Auto-swap requires **autosign to be ON**. If autosign is disabled, auto-swap stops working.
+Auto-swap relies on **auto-sign being enabled** (it's on by default). If auto-sign is off, the rule can't execute. See **Secure your account** for the auto-sign setting.
 </Warning>
+
+<Note>
+Each auto-swap is a live exchange, so it carries the usual swap cost — the network (miner) fee plus the third-party exchange provider's fee, taken from the amount converted. Conversions run on mainnet.
+</Note>
