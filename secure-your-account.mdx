@@ -1,73 +1,153 @@
 ---
 title: "Secure your account"
-description: "Turn on email and Google Authenticator 2FA, save your backup phrase, and lock down API access — before you touch any funds."
+description: "Confirm your email and switch on Email 2FA and Google Authenticator in CryptoNow. Both are required before you can view keys, withdraw, or move funds."
 ---
 
-CryptoNow doesn't force two-factor authentication at sign-up, but it's required
-the moment you do anything that matters.
+<Frame>
+  <iframe src="https://embed.app.guidde.com/playbooks/5arujWEPNJkMhsn85qxwf3" title="Secure your account in CryptoNow" width="100%" allow="fullscreen" />
+</Frame>
+
+CryptoNow protects every money- and key-related action with two independent layers: **Email 2FA** and **Google Authenticator**. This guide confirms your email (a prerequisite) and turns both on.
 
 <Warning>
-  **Email 2FA and Google Authenticator are effectively mandatory.** Both must be
-  on before you can withdraw, move funds, view private or API keys, or delete a
-  wallet or account. Set them up now so nothing blocks you later.
+  **Both layers are effectively mandatory.** Email 2FA and Google Authenticator each gate viewing private keys, viewing API keys, withdrawing, moving funds, deleting a wallet or account, and login. They aren't forced at first login — they're enforced the first time you try to act. Enable both now so you're not blocked later.
+</Warning>
+
+## Confirm your email
+
+<Steps>
+  <Step title="Open your profile">
+    From the dashboard, open the **User** menu (top-right) and click **Profile**.
+
+    {/* image: /images/secure-your-account/01-open-profile.png */}
+  </Step>
+  <Step title="Send the confirmation link">
+    In the **Confirm E-mail** section, click **Send link**. (The button greys out once your email is confirmed.)
+
+    {/* image: /images/secure-your-account/02-send-link.png */}
+  </Step>
+  <Step title="Confirm from your inbox">
+    Open the email from CryptoNow and click **Confirm email**. If the button doesn't work, paste the fallback link shown in the message into your browser.
+
+    {/* image: /images/secure-your-account/03-confirm-email.png */}
+  </Step>
+  <Step title="Return to the app">
+    On the **Your email has been verified** screen, click **Browse your CryptoNow**, then switch back to the app to continue.
+
+    {/* image: /images/secure-your-account/04-return-to-app.png */}
+  </Step>
+</Steps>
+
+## Turn on Email 2FA
+
+<Steps>
+  <Step title="Enable E-mail 2FA">
+    In the **Enable E-mail 2FA** section of your profile, click **Enable 2FA**. You'll see a success confirmation. This is the first of the two layers.
+
+    {/* image: /images/secure-your-account/05-enable-email-2fa.png */}
+  </Step>
+</Steps>
+
+## Turn on Google Authenticator
+
+<Note>
+  This is a **separate toggle** from Email 2FA. It lives in the **Two-factor authentication** section — not the **Enable E-mail 2FA** section above it. You need both.
+</Note>
+
+<Steps>
+  <Step title="Open the setup dialog">
+    In the **Two-factor authentication** section, click **Enable 2FA** to open the setup dialog with the QR code.
+
+    {/* image: /images/secure-your-account/06-open-google-2fa.png */}
+  </Step>
+  <Step title="Scan the QR code">
+    In Google Authenticator on your phone, add an account and scan the QR code. If you can't scan, enter the setup key shown beneath it manually.
+
+    {/* image: /images/secure-your-account/07-scan-qr.png */}
+  </Step>
+  <Step title="Enter the 6-digit code">
+    Type the current 6-digit code from Google Authenticator into the **Authenticator Code** field.
+
+    {/* image: /images/secure-your-account/08-enter-code.png */}
+  </Step>
+  <Step title="Finalize">
+    Click **Enable 2FA** to confirm. Google Authenticator is now active alongside Email 2FA.
+
+    {/* image: /images/secure-your-account/09-finalize.png */}
+  </Step>
+</Steps>
+
+<Tip>
+  **Set your backup phrase too.** In the **Backup Phrase** section, click **Start Backup** to generate your 12-word recovery phrase. It's created once, can't be changed, and is the way to reset your password if you're locked out. Write it down and store it offline — never in the browser or a screenshot.
+</Tip>
+
+<Warning>
+  **Leave Autosign ON.** Autosign is on by default and is load-bearing — disabling it breaks token checkouts, client-wallet sweeps, swap, and auto-swap. Don't turn it off while hardening your account.
+</Warning>
+
+<Note>
+  **Using the API?** You can further restrict public-API access by **IP**, **Origin**, and **User-Agent** allowlists in your account's Security settings.
+</Note>
+
+## Turning 2FA off
+
+You can disable either layer later with the **Disable 2FA** button, but you'll need to pass your current 2FA to do it. We recommend keeping both on — they're required before any withdrawal or key action regardless.
+
+## Next step
+
+<Card title="Set up your treasury wallet & gas" href="/set-up-your-treasury-and-gas">
+  Fund your account wallet for gas and learn who pays network fees on deposits vs. withdrawals.
+</Card>
+
+CryptoNow doesn't force two-factor authentication at sign-up, but it's required the moment you do anything that matters.
+
+<Warning>
+  **Email 2FA and Google Authenticator are effectively mandatory.** Both must be on before you can withdraw, move funds, view private or API keys, or delete a wallet or account. Set them up now so nothing blocks you later.
 </Warning>
 
 Everything here lives under **Settings → Security**.
 
 <Frame caption="The Security section before setup — email unconfirmed, 2FA off.">
-  <img src="/images/secure-your-account/01-security-overview.png" alt="CryptoNow security settings with email 2FA and two-factor authentication disabled" />
+  ![CryptoNow security settings with email 2FA and two-factor authentication disabled](/images/secure-your-account/01-security-overview.png)
 </Frame>
 
 <Steps>
   <Step title="Confirm your email">
-    Under **Confirm E-mail**, click **Send link**, then open the message and
-    confirm. The status flips to **Confirmed**.
+    Under **Confirm E-mail**, click **Send link**, then open the message and confirm. The status flips to **Confirmed**.
   </Step>
-
   <Step title="Enable email 2FA">
-    Click **Enable 2FA** under **Enable E-mail 2FA**. From now on, a code is
-    emailed to you for sensitive actions.
+    Click **Enable 2FA** under **Enable E-mail 2FA**. From now on, a code is emailed to you for sensitive actions.
   </Step>
-
   <Step title="Enable Google Authenticator">
-    Under **Two-factor authentication**, click **Enable 2FA**, scan the QR code
-    with Google Authenticator (or any TOTP app), and enter the 6-digit code to
-    confirm.
+    Under **Two-factor authentication**, click **Enable 2FA**, scan the QR code with Google Authenticator (or any TOTP app), and enter the 6-digit code to confirm.
 
     <Frame caption="Scan the QR with your authenticator app, then enter the code.">
-      <img src="/images/secure-your-account/02-google-auth-setup.png" alt="Enable 2FA dialog showing a QR code to scan with Google Authenticator" />
+      ![Enable 2FA dialog showing a QR code to scan with Google Authenticator](/images/secure-your-account/02-google-auth-setup.png)
     </Frame>
 
     <Note>
-      Store your authenticator backup somewhere safe. If you lose the device,
-      regaining access means contacting support.
+      Store your authenticator backup somewhere safe. If you lose the device, regaining access means contacting support.
     </Note>
   </Step>
-
   <Step title="Save your backup phrase">
-    Under **Backup Phrase**, click **Start Backup** and write down the 12 words
-    in order, offline. This recovers your account if you lose your password.
+    Under **Backup Phrase**, click **Start Backup** and write down the 12 words in order, offline. This recovers your account if you lose your password.
   </Step>
 </Steps>
 
 Both factors on, your account looks like this:
 
 <Frame caption="Email 2FA and two-factor authentication both enabled.">
-  <img src="/images/secure-your-account/03-2fa-enabled.png" alt="CryptoNow security settings showing email 2FA and two-factor authentication both enabled" />
+  ![CryptoNow security settings showing email 2FA and two-factor authentication both enabled](/images/secure-your-account/03-2fa-enabled.png)
 </Frame>
 
 ## Restrict API access (for API users)
 
-If you'll use the API, lock it down under **Settings → Security** by allowlisting
-the **IP**, **Origin**, and **User-Agent** that may call it. Skip this if you're
-not building an integration.
+If you'll use the API, lock it down under **Settings → Security** by allowlisting the **IP**, **Origin**, and **User-Agent** that may call it. Skip this if you're not building an integration.
 
 <Frame caption="Allowlist the IP, origin, and user-agent that can use your API keys.">
-  <img src="/images/secure-your-account/04-api-allowlist.png" alt="API security settings with whitelist IP, origin, and user agent fields" />
+  ![API security settings with whitelist IP, origin, and user agent fields](/images/secure-your-account/04-api-allowlist.png)
 </Frame>
 
 <Note>
-  One thing **not** to touch: leave **autosign on**. It's on by default and
-  signs your checkouts, sweeps, and swaps automatically — turning it off breaks
-  those flows.
+  One thing **not** to touch: leave **autosign on**. It's on by default and signs your checkouts, sweeps, and swaps automatically — turning it off breaks those flows.
 </Note>

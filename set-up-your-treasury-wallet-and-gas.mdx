@@ -1,51 +1,82 @@
 ---
-title: "Set up your treasury & gas"
-description: "Fund native gas tokens in your account wallets so sweeps, swaps, and sends can go through — and set who covers gas on client flows."
+title: "Find your way around"
+description: "A quick tour of where everything lives in CryptoNow — your account, Account wallets, and Client wallets — so you always know where your money sits and where customers pay in."
 ---
 
-Your **account wallets** are your treasury — one wallet per network, holding what
-you've earned. On-chain actions (sweeping client deposits, swapping, sending out)
-cost a network miner fee, paid in that chain's **native gas token** (ETH on
-Ethereum, BNB on BNB Chain, and so on). Keep a little gas in each network you use,
-or those actions can't execute.
+<Frame>
+  <iframe src="https://embed.app.guidde.com/playbooks/ocThQU51VaNTPHT9NBEh1d" title="Find your way around CryptoNow" width="100%" allow="fullscreen" />
+</Frame>
+
+A 60-second orientation so you always know where your money sits and where your customers pay in.
+
+<Info>
+  **The structure in one line:** you log in as a **User**. Inside, you have one or more **Accounts** — switch between them with the toggle at the top right. Each account holds two wallet groups: **Account wallets** (your own money) and **Client wallets** (where your customers pay in). A **Client** is any customer sending you funds.
+</Info>
+
+## Account wallets — your treasury
+
+Account wallets hold your own funds — one wallet per coin and network, each with its own address. The amount shown is the **real balance** held in each. This is also where the account keeps the gas it needs to move crypto on your behalf.
+
+{/* image: /images/find-your-way-around/01-account-wallets.png */}
+
+## Client wallets — where customers pay in
+
+Client wallets are permanent deposit addresses, one per client — the same address every time that client pays you.
+
+<Note>
+  Funds never sit in a client wallet — every deposit sweeps to your Account wallets automatically. So a client wallet's figure is **total throughput over time, not a current balance**.
+</Note>
+
+{/* image: /images/find-your-way-around/02-client-wallets.png */}
+
+## Run more than one brand
+
+Each brand can have its own account — up to **five** — with completely separate wallets and books. Switch between them with the **Account** toggle at the top right.
+
+{/* image: /images/find-your-way-around/03-accounts.png */}
+
+## Home — your dashboard
+
+Home shows your total balance and every coin at a glance for the account you're currently in.
+
+{/* image: /images/find-your-way-around/04-home.png */}
+
+## Next step
+
+<Card title="Create your first payment link" href="/create-your-first-payment-link">
+  Now that you know the layout, take your first crypto payment.
+</Card>
+
+Your **account wallets** are your treasury — one wallet per network, holding what you've earned. On-chain actions (sweeping client deposits, swapping, sending out) cost a network miner fee, paid in that chain's **native gas token** (ETH on Ethereum, BNB on BNB Chain, and so on). Keep a little gas in each network you use, or those actions can't execute.
 
 ## See your treasury
 
 Go to **Wallets → Account wallets** for the per-network view of your balances.
 
 <Frame caption="Account wallets — one per network, each its own address.">
-  <img src="/images/set-up-your-treasury-and-gas/01-account-wallets.png" alt="CryptoNow account wallets list showing one wallet per network" />
+  ![CryptoNow account wallets list showing one wallet per network](/images/set-up-your-treasury-and-gas/01-account-wallets.png)
 </Frame>
 
 ## Fund gas
 
-Open **Receive** on the native coin of a network you'll use (e.g. Ethereum),
-then send a small amount of that token to the address shown — scan the QR or copy
-the address.
+Open **Receive** on the native coin of a network you'll use (e.g. Ethereum), then send a small amount of that token to the address shown — scan the QR or copy the address.
 
 <Frame caption="Send a little native gas to this network's account-wallet address.">
-  <img src="/images/set-up-your-treasury-and-gas/02-fund-gas-address.png" alt="Receive dialog with a wallet address and QR code for funding gas" />
+  ![Receive dialog with a wallet address and QR code for funding gas](/images/set-up-your-treasury-and-gas/02-fund-gas-address.png)
 </Frame>
 
 <Tip>
-  You only need gas on the networks you'll actually transact on. A few dollars of
-  native token per network is plenty to start.
+  You only need gas on the networks you'll actually transact on. A few dollars of native token per network is plenty to start.
 </Tip>
 
 ## Choose who pays gas
 
-In **Settings → Account Settings**, the **Miner Fee for withdrawal / replenishment
-pays** toggles decide whether **you (Me)** or **the customer** covers the network
-fee. The same panel holds your **Account fee** percentages — your optional
-commission on withdrawals and replenishments.
+In **Settings → Account Settings**, the **Miner Fee for withdrawal / replenishment pays** toggles decide whether **you (Me)** or **the customer** covers the network fee. The same panel holds your **Account fee** percentages — your optional commission on withdrawals and replenishments.
 
 <Frame caption="Set the gas payer and your account-fee percentages.">
-  <img src="/images/set-up-your-treasury-and-gas/03-gas-payer-and-fees.png" alt="Account settings showing miner fee payer toggles and account fee fields" />
+  ![Account settings showing miner fee payer toggles and account fee fields](/images/set-up-your-treasury-and-gas/03-gas-payer-and-fees.png)
 </Frame>
 
 <Warning>
-  **This toggle only affects client-wallet flows** — client replenishment sweeps
-  and client-wallet withdrawals. It does **not** change who pays gas on your own
-  account-wallet sends or swaps; those always draw native gas from the account
-  wallet itself. That's why funding gas above matters regardless of this setting.
+  **This toggle only affects client-wallet flows** — client replenishment sweeps and client-wallet withdrawals. It does **not** change who pays gas on your own account-wallet sends or swaps; those always draw native gas from the account wallet itself. That's why funding gas above matters regardless of this setting.
 </Warning>
