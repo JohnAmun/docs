@@ -1,24 +1,124 @@
 ---
-title: "Set up subscriptions"
-description: "Create a recurring billing plan so customers are charged on a schedule."
+title: "Set up subscription payments"
+description: "Create an on-chain subscription plan, publish it, and share it so customers can subscribe and pay you automatically every period."
 ---
 
-Recurring billing lets you charge customers on a repeating schedule for memberships or subscriptions.
+Recurring billing lets you charge customers on a repeating schedule — daily, weekly, monthly, or yearly — directly on-chain. You create a **plan**, publish it, and share a link. Your customer approves once in their wallet, and each period the amount settles straight to your payee wallet. You stay in control of the funds the whole way.
 
-{/* Guidde video embed goes here */}
+<Info>
+  A subscription plan lives on-chain. Once published, the plan can accept subscribers immediately through its link, embed button, or iframe.
+</Info>
+
+## Before you start
+
+<Note>
+  You'll need:
+  - A CryptoNow account.
+  - A **payee wallet** — the address that receives each payment.
+  - An **owner wallet** with a little native coin (ETH, BNB, etc.) to cover the one-time publish fee. The owner wallet is the one that publishes the plan on-chain.
+  - Your plan basics decided: the token and network, the price, and the billing period.
+</Note>
+
+## Create and publish a plan
 
 <Steps>
-  <Step title="Create a plan">
-    {/* Guidde steps — name, payee address, price, period type, owner */}
+  <Step title="Open Recurring billing">
+    In the dashboard, go to **Payments → Recurring billing**, then select **Create Plan**.
+
+    <Frame caption="The Recurring billing page, before any plans exist.">
+      <img src="/images/set-up-subscription-payments/01-plans-empty.png" alt="Empty Recurring billing plans list with a Create Plan button" />
+    </Frame>
   </Step>
-  <Step title="Publish it on-chain">
-    {/* Guidde steps — Save as Draft vs Publish */}
+
+  <Step title="Enter the plan details">
+    Give the plan a **name** and **description**, choose the **payee address** that will receive payments, then set the **price** and the **token / network**.
+
+    <Frame caption="The Create New Plan form.">
+      <img src="/images/set-up-subscription-payments/02-create-plan.png" alt="Create New Plan form with name, description, payee, price and token fields" />
+    </Frame>
+
+    Subscriptions are billed in stablecoins on the supported networks:
+
+    <Frame caption="Token and network options for a plan.">
+      <img src="/images/set-up-subscription-payments/03-currency-options.png" alt="Currency dropdown showing USDT and USDC on Ethereum, BNB Chain and Polygon" />
+    </Frame>
+
+    Pick how often the customer is charged under **Period Type**:
+
+    <Frame caption="Billing period options: Daily, Weekly, Monthly, Yearly.">
+      <img src="/images/set-up-subscription-payments/04-period-type.png" alt="Period Type dropdown with Daily, Weekly, Monthly and Yearly" />
+    </Frame>
+
+    Finally, choose the **owner** wallet (this publishes the plan and pays the small publish fee). You can optionally add a plan photo, logo, and brand colours.
+
+    <Frame caption="A completed plan, ready to publish.">
+      <img src="/images/set-up-subscription-payments/05-plan-details.png" alt="Filled-in Create New Plan form with price, period and owner selected" />
+    </Frame>
   </Step>
-  <Step title="Share the subscription link">
-    {/* Guidde steps */}
+
+  <Step title="Publish the plan on-chain">
+    Select **Next** to review. Publishing costs a small network fee, shown as an estimate before you confirm. Choose **Save as Draft** to keep it off-chain for now, or **Publish** to make it live.
+
+    <Warning>
+      Publishing is **non-revertible** — the plan is written on-chain. You can still deactivate or stop subscriptions later, but the published plan itself can't be undone.
+    </Warning>
+
+    <Frame caption="The publish confirmation, with the network-fee estimate.">
+      <img src="/images/set-up-subscription-payments/06-publish.png" alt="Publish confirmation showing plan summary, publication estimate and Publish button" />
+    </Frame>
+
+    Once published, the plan appears in your list as **Active**.
+
+    <Frame caption="A published, active plan.">
+      <img src="/images/set-up-subscription-payments/07-plan-active.png" alt="Plans list showing an Active subscription plan" />
+    </Frame>
   </Step>
 </Steps>
 
-<Warning>
-  **Recurring billing is web3-native, not card-style.** The plan is published on-chain and the customer must authorise it from a web3 wallet. It is **not** a card-style subscription — and **BTC cannot be used** for recurring. A charge fails if the customer's wallet is empty or they revoke the allowance.
-</Warning>
+## Share the plan with customers
+
+Open the plan's actions and choose **Plan information**. You have three ways to start accepting subscribers:
+
+- **Link** — a hosted subscribe page you can send anywhere.
+- **Embed** — a "Buy with Crypto" button for your site.
+- **iFrame** — the subscribe page embedded inline.
+
+<Tip>
+  Toggle **clickId** to tag the link with your own reference (for example an order or customer ID) so you can attribute each subscriber back to your system.
+</Tip>
+
+<Frame caption="Copy a direct subscribe link.">
+  <img src="/images/set-up-subscription-payments/09-share-link.png" alt="Plan information dialog on the Link tab with a copyable subscribe URL" />
+</Frame>
+
+<Frame caption="Or drop a payment button into your site.">
+  <img src="/images/set-up-subscription-payments/10-share-embed.png" alt="Plan information dialog on the Embed tab showing button HTML" />
+</Frame>
+
+<Frame caption="Or embed the subscribe page as an iframe.">
+  <img src="/images/set-up-subscription-payments/11-share-iframe.png" alt="Plan information dialog on the iFrame tab showing iframe HTML" />
+</Frame>
+
+## What your customer sees
+
+When a customer opens the link, they see the plan, enter their details, and connect a Web3 wallet. They select **Recurring**, approve the charge once, and from then on each period is collected automatically. They can cancel at any time.
+
+<Frame caption="The hosted subscribe page a customer sees after opening the link.">
+  <img src="/images/set-up-subscription-payments/12-customer-view.png" alt="Hosted CryptoNow subscribe page with One time / Recurring options, name and email fields, and Connect wallet" />
+</Frame>
+
+## Manage your plans
+
+Use the actions menu (**⋮**) on any plan row to manage it after launch:
+
+<Frame caption="Per-plan actions.">
+  <img src="/images/set-up-subscription-payments/08-manage-plan.png" alt="Plan row actions menu: Subscriptions, Activities, Duplicate, Edit, Delete" />
+</Frame>
+
+- **Subscriptions** — view everyone subscribed to the plan.
+- **Activities** — the per-period charge history for the plan.
+- **Edit** — update details, or deactivate and reactivate the plan.
+- **Duplicate** — spin up a similar plan quickly.
+- **Delete** — remove a plan.
+
+As customers subscribe, the **Subscribers (Active / All)** count and the **Activities** log fill in, giving you a running view of who's active and what has been charged.
