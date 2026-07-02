@@ -1,0 +1,55 @@
+---
+title: "Transaction statuses & types"
+description: "What each entry in your transaction history means — the lifecycle states and the transaction types you'll see."
+icon: "list-check"
+---
+
+Every money movement shows up in **Transaction's → History**. Each row has a **type** (what the entry is) and a **status** (where it is in its lifecycle). Expand a row for the full on-chain detail.
+
+## Statuses
+
+<Info>
+  Transactions move through two states:
+
+  - **Pending** — submitted and awaiting on-chain confirmation.
+  - **Done** — confirmed and complete.
+</Info>
+
+A hosted **checkout charge** has its own lifecycle before it becomes a transaction:
+
+- **New** — created, waiting for the customer to pay.
+- **Pending** — payment detected, confirming on-chain.
+- **Done** — payment confirmed; it lands in your account wallet as a Replenishment.
+- **Expired** — the payment window elapsed with no (or insufficient) funds.
+
+## Types
+
+You can filter History by type. The common ones:
+
+| Type | What it is |
+| --- | --- |
+| **Replenishment** | Funds arriving into an account wallet — a client-wallet sweep, a swap output landing, or a checkout payment settling. Carries your `clickId` when one was passed. |
+| **Withdrawal** | Funds sent out from an account wallet to an external address. |
+| **Swap** | An exchange between two currencies via an exchange partner. |
+| **Multisend** | A batch payout to many addresses in one transaction. |
+| **Internal Transfer** | An off-chain move between wallets on the platform — no network gas. |
+| **External Call** | An on-chain call the platform makes (for example, estimating a multisend miner fee), which itself costs a small blockchain fee. |
+| **Refund Miner Fee** | A return of unused miner fee. |
+| **System Fee** | A CryptoNow system-fee charge shown as its own entry. |
+| **Error** | An operation that failed. |
+
+## What's in a row
+
+Expand any transaction to see the detail:
+
+- **Payment ID** — CryptoNow's internal reference for the entry.
+- **To / From** — the on-chain addresses.
+- **Miner Fee** — the network fee, in the source network's native coin.
+- **System Fee** — the CryptoNow fee (for example, 0.5% on a replenishment).
+- **Hash** — the on-chain transaction hash (links to the explorer).
+- **IncomingHash** — for a settled payment, the hash of the customer's inbound transfer.
+- **clickId** — your attribution reference, when one was passed (echoes back as `outsideOrderId`).
+
+<Tip>
+  Reconcile against your own system by matching on **`clickId`** — it ties each Replenishment back to the exact order or customer.
+</Tip>

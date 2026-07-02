@@ -39,6 +39,7 @@
           ]
         },
         "pages": [
+          "index",
           {
             "group": "Getting Started",
             "pages": [
@@ -75,8 +76,8 @@
           {
             "group": "Fix problems",
             "pages": [
-              "untitled-page",
-              "v"
+              "how-wallet-balances-work",
+              "transaction-statuses"
             ]
           }
         ]
@@ -131,5 +132,17 @@
   },
   "styling": {
     "codeblocks": "system"
-  }
+  },
+  "redirects": [
+    {
+      "source": "/untitled-page",
+      "destination": "/how-wallet-balances-work",
+      "permanent": true
+    },
+    {
+      "source": "/v",
+      "destination": "/transaction-statuses",
+      "permanent": true
+    }
+  ]
 }
