@@ -80,7 +80,13 @@
       "type": "button",
       "label": "Dashboard",
       "href": "https://app.crypto-now.io"
-    }
+    },
+    "links": [
+      {
+        "href": "https://t.me/cryptonow_io",
+        "label": "Support"
+      }
+    ]
   },
   "contextual": {
     "options": [
@@ -121,6 +127,11 @@
   ],
   "description": "How to accept crypto payments with CryptoNow — set up your account, create checkouts and payment links, integrate WooCommerce, pay out, and swap crypto.",
   "seo": {
-    "indexing": "navigable"
+    "indexing": "navigable",
+    "metatags": {
+      "og:image": "https://guide.crypto-now.io/images/og-guide.png",
+      "twitter:card": "summary_large_image",
+      "twitter:image": "https://guide.crypto-now.io/images/og-guide.png"
+    }
   }
 }
