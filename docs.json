@@ -24,20 +24,6 @@
     "versions": [
       {
         "version": "Untitled Version",
-        "global": {
-          "anchors": [
-            {
-              "anchor": "Blog",
-              "icon": "newspaper",
-              "href": "https://www.crypto-now.io/blog"
-            },
-            {
-              "anchor": "Documentation",
-              "icon": "book-open-cover",
-              "href": "https://docs.crypto-now.io/what-is-crypto-now/"
-            }
-          ]
-        },
         "pages": [
           "index",
           {
